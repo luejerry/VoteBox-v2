@@ -16,6 +16,7 @@ public class Scan implements IScanner {
     private final static Path scanPath = JarResource.getResource("scan");
 
     public String scan(int timeout) throws IOException {
-        return ExternalProcess.runInDirAndCapture(scanPath.getParent().toFile(), "./scan", String.valueOf(timeout));
+        final String result = ExternalProcess.runInDirAndCapture(scanPath.getParent().toFile(), "./scan", String.valueOf(timeout));
+        return result.isEmpty() ? result : result.substring(0, result.length() - 1); // Remove the trailing newline
     }
 }
