@@ -76,7 +76,9 @@ public class PageController {
     }
 
     public void addTestBallots() {
-        ballotDb.addBallot("Acc3ptB@LL07", 3);
+        final String code = "Acc3ptB@LL07";
+        ballotDb.addBallot(code, 3);
+        System.out.println("New ballot added with code " + code + ", 3 pages");
     }
 
     /**

@@ -1,4 +1,4 @@
-# Ballot box driver, Java edition 1.9
+# Ballot box driver, Java edition 2.0
 
 Driver application for the STAR-Vote ballot box, written in Java for the Raspberry Pi.
 
