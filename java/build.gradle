@@ -45,6 +45,13 @@ task swingStartScript(type: CreateStartScripts) {
     classpath = jar.outputs.files + project.configurations.runtime
 }
 
+task multipageStartScript(type: CreateStartScripts) {
+    mainClassName = 'edu.rice.starvote.ballotbox.PageController'
+    applicationName = 'ballotboxmp'
+    outputDir = new File(project.buildDir, 'scripts')
+    classpath = jar.outputs.files + project.configurations.runtime
+}
+
 distributions {
     main {
         contents {
@@ -55,6 +62,10 @@ distributions {
                 into "rules"
             }
             from(swingStartScript) {
+                into "bin"
+                fileMode = 0755
+            }
+            from(multipageStartScript) {
                 into "bin"
                 fileMode = 0755
             }
