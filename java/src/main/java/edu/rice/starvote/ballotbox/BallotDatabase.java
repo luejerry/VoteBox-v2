@@ -18,6 +18,8 @@ public class BallotDatabase {
         final BallotProgress newProgress = new BallotProgress(code, oldProgress.pagesScanned + 1, oldProgress.pagesTotal);
         if (newProgress.completed()) {
             ballots.remove(code);
+        } else {
+            ballots.put(code, newProgress);
         }
         return Optional.of(newProgress);
     }
