@@ -26,6 +26,7 @@ public class PageController {
     private final Monitor monitor;
     private final DisplayController display;
     private final BallotDatabase ballotDb;
+    private final CodeInputReader inputReader;
 
     /**
      * Instantiates all modules, performing the necessary linking. Does not start the paper listener or status server.
@@ -50,7 +51,7 @@ public class PageController {
                     System.out.println("Ballot code " + code + " completed");
                     updater.pushStatus(BallotStatus.ACCEPT);
 
-                    addTestBallots(); // For testing only: readd the ballot code after it is finished scanning
+//                    addTestBallots(); // For testing only: readd the ballot code after it is finished scanning
                 } else {
                     System.out.println("Ballot code " + code + " scanned " + progress.pagesScanned + " of " + progress.pagesTotal);
                     display.pushProgress(progress);
@@ -64,6 +65,7 @@ public class PageController {
         };
         spooler = new PaperSpooler(updater, diverter, motor, halfwaySensor, scanner, validator);
         monitor = new Monitor(listener, spooler);
+        inputReader = new CodeInputReader(ballotDb);
     }
 
     /**
@@ -72,7 +74,9 @@ public class PageController {
     public void run() {
         display.start();
         updater.pushStatus(BallotStatus.WAITING);
-        monitor.run();
+        addTestBallots(); // For testing only: add initial 3 page ballot
+        new Thread(monitor::run).start();
+        inputReader.monitorUserInput();
     }
 
     public void addTestBallots() {
