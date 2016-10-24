@@ -48,17 +48,17 @@ public class PageController {
             final Optional<BallotProgress> oProgress = ballotDb.scanPage(code);
             return oProgress.map((progress) -> {
                 if (progress.completed()) {
-                    System.out.println("Ballot code " + code + " completed");
+                    System.out.println("Validator: Ballot code " + code + " completed");
                     updater.pushStatus(BallotStatus.ACCEPT);
 
 //                    addTestBallots(); // For testing only: readd the ballot code after it is finished scanning
                 } else {
-                    System.out.println("Ballot code " + code + " scanned " + progress.pagesScanned + " of " + progress.pagesTotal);
+                    System.out.println("Validator: Ballot code " + code + " scanned " + progress.pagesScanned + " of " + progress.pagesTotal);
                     display.pushProgress(progress);
                 }
                 return true;
             }).orElseGet(() -> {
-                System.out.println("Ballot code " + code + " invalid");
+                System.out.println("Validator: Ballot code " + code + " invalid");
                 updater.pushStatus(BallotStatus.REJECT);
                 return false;
             });

@@ -33,14 +33,14 @@ public class Monitor {
         while (true) {
             // Blocks until a GPIO interrupt is triggered by the paper sensor.
             listener.waitForEvent(PinEdge.RISING);
-            System.out.print("Paper detected... ");
+            System.out.print(getClass().getSimpleName() + ": Paper detected... ");
             if (spooler.getStatus() != DeviceStatus.READY) {
-                System.out.println("Device " + spooler.getStatus());
+                System.out.println(getClass().getSimpleName() + ": Device " + spooler.getStatus());
             } else {
                 try {
                     TimeUnit.MILLISECONDS.sleep(2000);
                     if (listener.getState().isLow()) {
-                        System.out.println("false positive");
+                        System.out.println(getClass().getSimpleName() + ": false positive");
                         continue;
                     }
                 } catch (InterruptedException e) {
@@ -48,10 +48,10 @@ public class Monitor {
                 }
                 // Process all available pages.
                 while (listener.getState().isHigh()) {
-                    System.out.println("Spooling in page");
+                    System.out.println(getClass().getSimpleName() + ": Spooling in page");
                     spooler.takeIn();
                 }
-                System.out.println("All pages spooled");
+                System.out.println(getClass().getSimpleName() + ": All pages spooled");
             }
         }
     }

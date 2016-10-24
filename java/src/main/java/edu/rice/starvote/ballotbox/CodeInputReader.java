@@ -20,7 +20,7 @@ public class CodeInputReader {
     }
 
     public void monitorUserInput() {
-        System.out.println("Input Ready: Enter <ballot code> <pages> to enter a new ballot into the database");
+        System.out.println("Input Ready: Enter <ballot code> <pages> to enter a new ballot into the database or \"exit\" to quit");
         int pages;
         String code;
         while (true) {
