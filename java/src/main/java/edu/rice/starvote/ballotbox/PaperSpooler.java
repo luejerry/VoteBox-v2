@@ -66,7 +66,7 @@ public class PaperSpooler implements ISpooler {
                 else {
                     statusUpdater.pushStatus(BallotStatus.OFFLINE);
                     status = DeviceStatus.ERROR;
-                    System.out.println("Paper jam detected, device state set to ERROR");
+                    System.out.println(getClass().getSimpleName() + ": Paper jam detected, device state set to ERROR");
                     return status;
                 }
             case ERROR:
@@ -74,7 +74,7 @@ public class PaperSpooler implements ISpooler {
                 if (halfwaySensor.getState() == PinState.HIGH) {
                     statusUpdater.pushStatus(BallotStatus.WAITING);
                     status = DeviceStatus.READY;
-                    System.out.println("Paper jam cleared, device now READY");
+                    System.out.println(getClass().getSimpleName() + "Paper jam cleared, device now READY");
                     return status;
                 } else { return status; }
             default:
@@ -118,25 +118,25 @@ public class PaperSpooler implements ISpooler {
             /* Wait for paper to enter the scanner. */
             final boolean paperSpooled = halfwaySensor.waitForEvent(PinEdge.FALLING, 3000);
             if (paperSpooled) {
-                System.out.println("Paper taken in, beginning scan");
+                System.out.println(getClass().getSimpleName() + ": Paper taken in, beginning scan");
                 BallotStatus scanStatus;
                 waitMillis(150); // Small delay is necessary here to ensure paper is fed
 
                 motor.reverse(25);
                 String code = scanner.scan(SCANTIME);
-                System.out.println("Code scanned: " + code);
+                System.out.println(getClass().getSimpleName() + ": Code scanned: " + code);
                 motor.stop();
                 if (code.isEmpty()) {
-                    System.out.println("Ballot not scanned");
+                    System.out.println(getClass().getSimpleName() + ": Ballot not scanned");
                     diverter.up();
                     scanStatus = BallotStatus.REJECT;
                     statusUpdater.pushStatus(scanStatus);
                 } else if (validator.validate(code)) {
-                    System.out.println("Ballot code valid");
+                    System.out.println(getClass().getSimpleName() + ": Ballot code valid");
                     diverter.down();
                     scanStatus = BallotStatus.ACCEPT;
                 } else {
-                    System.out.println("Ballot code invalid");
+                    System.out.println(getClass().getSimpleName() + ": Ballot code invalid");
                     diverter.up();
                     scanStatus = BallotStatus.REJECT;
                 }
@@ -147,7 +147,7 @@ public class PaperSpooler implements ISpooler {
                 /* Wait for paper to exit the scanner. */
                 final boolean paperEjected = halfwaySensor.waitForEvent(PinEdge.RISING, 4000);
                 if (paperEjected) {
-                    System.out.println("Spooler cleared");
+                    System.out.println(getClass().getSimpleName() + ": Spooler cleared");
                     waitMillis(600); // Ensure paper is completely ejected
                     motor.stop();
 //                    statusUpdater.pushStatus(scanStatus);
@@ -157,13 +157,13 @@ public class PaperSpooler implements ISpooler {
                 /* Paper did not exit scanner (paper jam). */
                     if (halfwaySensor.getState().isLow()) {
                     // Paper still in feeder, abort with error
-                        System.out.println("Spooler jammed");
+                        System.out.println(getClass().getSimpleName() + ": Spooler jammed");
                         motor.stop();
                         status = DeviceStatus.ERROR;
                         statusUpdater.pushStatus(BallotStatus.OFFLINE);
                     } else {
                     // Feeder is clear, continue
-                        System.out.println("Spooler checked clear");
+                        System.out.println(getClass().getSimpleName() + ": Spooler checked clear");
                         motor.stop();
                         status = DeviceStatus.READY;
                         statusUpdater.pushStatus(BallotStatus.WAITING);
@@ -173,7 +173,7 @@ public class PaperSpooler implements ISpooler {
             } else {
             /* Paper did not enter scanner. */
 
-                System.out.println("Paper tray empty");
+                System.out.println(getClass().getSimpleName() + ": Paper tray empty");
 
                 // Reset the feeder
                 motor.reverse();
