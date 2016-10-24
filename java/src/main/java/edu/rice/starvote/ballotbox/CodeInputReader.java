@@ -6,10 +6,16 @@ import java.util.Scanner;
  * Created by cyricc on 10/20/2016.
  */
 public class CodeInputReader {
-    private final Scanner reader = new Scanner(System.in);
+    private final Scanner reader;
     private final BallotDatabase ballotDb;
 
     public CodeInputReader(BallotDatabase ballotDb) {
+        this.reader = new Scanner(System.in);
+        this.ballotDb = ballotDb;
+    }
+
+    public CodeInputReader(Scanner reader, BallotDatabase ballotDb) {
+        this.reader = reader;
         this.ballotDb = ballotDb;
     }
 
@@ -19,7 +25,11 @@ public class CodeInputReader {
         String code;
         while (true) {
             try {
-                final String[] args = reader.nextLine().split(" ");
+                final String input = reader.nextLine();
+                if (input.equalsIgnoreCase("exit")) {
+                    break;
+                }
+                final String[] args = input.split(" ");
                 if (args.length == 0) {
                     continue;
                 } else if (args.length == 1) {

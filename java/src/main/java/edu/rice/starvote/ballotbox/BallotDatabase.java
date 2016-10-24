@@ -31,4 +31,8 @@ public class BallotDatabase {
     public void removeBallot(String code) {
         ballots.remove(code);
     }
+
+    public Optional<BallotProgress> getProgress(String code) {
+        return Optional.ofNullable(ballots.get(code));
+    }
 }
