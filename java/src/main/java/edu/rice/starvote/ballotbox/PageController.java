@@ -15,6 +15,8 @@ import java.util.Optional;
  */
 public class PageController {
 
+    private final String TESTCODE ="021908509730";
+
     private final GPIOListener listener;
     private final GPIOListener halfwaySensor;
     private final ISpooler spooler;
@@ -50,6 +52,10 @@ public class PageController {
                 if (progress.completed()) {
                     System.out.println("Validator: Ballot code " + code + " completed");
                     updater.pushStatus(BallotStatus.ACCEPT);
+                    if (code.equals(TESTCODE)) {
+                        ballotDb.addBallot(TESTCODE, 1);
+                        System.out.println("New ballot added with code " + TESTCODE + ", 1 page");
+                    }
 
 //                    addTestBallots(); // For testing only: readd the ballot code after it is finished scanning
                 } else {
@@ -83,13 +89,16 @@ public class PageController {
         final String code = "Acc3ptB@LL07";
         ballotDb.addBallot(code, 3);
         System.out.println("New ballot added with code " + code + ", 3 pages");
+        ballotDb.addBallot(TESTCODE, 1);
+        System.out.println("New ballot added with code " + TESTCODE + ", 1 page");
     }
 
     /**
      * Program main entry point. Starts up the ballot box.
+     *
      * @param args Ignored.
      */
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         final PageController controller = new PageController();
         controller.run();
     }
