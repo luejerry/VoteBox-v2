@@ -33,7 +33,7 @@ public class Monitor {
         while (true) {
             // Blocks until a GPIO interrupt is triggered by the paper sensor.
             listener.waitForEvent(PinEdge.RISING);
-            System.out.print(getClass().getSimpleName() + ": Paper detected... ");
+            System.out.println(getClass().getSimpleName() + ": Paper detected... ");
             if (spooler.getStatus() != DeviceStatus.READY) {
                 System.out.println(getClass().getSimpleName() + ": Device " + spooler.getStatus());
             } else {

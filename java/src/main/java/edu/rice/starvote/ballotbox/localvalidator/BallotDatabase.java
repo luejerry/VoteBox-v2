@@ -1,4 +1,4 @@
-package edu.rice.starvote.ballotbox;
+package edu.rice.starvote.ballotbox.localvalidator;
 
 import java.util.Map;
 import java.util.Optional;

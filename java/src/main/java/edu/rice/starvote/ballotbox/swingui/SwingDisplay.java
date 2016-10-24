@@ -1,13 +1,9 @@
 package edu.rice.starvote.ballotbox.swingui;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 /**
  * Swing-based ballot box display. This replaces the previous browser-based UI. The display runs in full screen

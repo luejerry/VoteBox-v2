@@ -1,6 +1,9 @@
 package edu.rice.starvote.ballotbox;
 
 import edu.rice.starvote.ballotbox.drivers.*;
+import edu.rice.starvote.ballotbox.localvalidator.BallotDatabase;
+import edu.rice.starvote.ballotbox.localvalidator.BallotProgress;
+import edu.rice.starvote.ballotbox.localvalidator.CodeInputReader;
 import edu.rice.starvote.ballotbox.swingui.DisplayController;
 import edu.rice.starvote.ballotbox.swingui.SwingDisplay;
 import edu.rice.starvote.ballotbox.swingui.VoiceController;
