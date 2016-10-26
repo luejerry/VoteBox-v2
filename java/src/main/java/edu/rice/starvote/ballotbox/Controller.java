@@ -42,6 +42,11 @@ public class Controller {
         validator = code -> {
             if (code.isEmpty()) {
                 updater.pushStatus(BallotStatus.REJECT);
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 return false;
             }
 
