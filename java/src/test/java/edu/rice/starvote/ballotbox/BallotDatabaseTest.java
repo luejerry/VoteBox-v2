@@ -1,5 +1,7 @@
 package edu.rice.starvote.ballotbox;
 
+import edu.rice.starvote.ballotbox.localvalidator.BallotDatabase;
+import edu.rice.starvote.ballotbox.localvalidator.BallotProgress;
 import org.junit.Test;
 
 import java.util.Optional;

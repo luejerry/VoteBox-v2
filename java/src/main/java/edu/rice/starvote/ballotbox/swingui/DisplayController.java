@@ -1,8 +1,8 @@
 package edu.rice.starvote.ballotbox.swingui;
 
-import edu.rice.starvote.ballotbox.BallotProgress;
 import edu.rice.starvote.ballotbox.BallotStatus;
 import edu.rice.starvote.ballotbox.IStatusUpdate;
+import edu.rice.starvote.ballotbox.localvalidator.BallotProgress;
 
 /**
  * Controls the box status Swing display. A `BallotStatus` is translated to a formatted, human-readable

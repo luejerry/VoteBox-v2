@@ -1,6 +1,5 @@
-package edu.rice.starvote.ballotbox;
+package edu.rice.starvote.ballotbox.localvalidator;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
