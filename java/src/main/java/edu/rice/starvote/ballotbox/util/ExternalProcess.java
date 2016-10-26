@@ -90,6 +90,7 @@ public final class ExternalProcess {
         StringBuilder builder = new StringBuilder();
         String line;
         while ( (line = reader.readLine()) != null) {
+            System.out.println("ExternalProcess: line read: \'" + line + "\'");
             builder.append(line);
             builder.append(System.getProperty("line.separator"));
         }
