@@ -34,11 +34,19 @@ public class Controller {
         motor = new PrinterMotor(22, 27, new PWMBlaster(17, 50));
         diverter = new DiverterPWM(new PWMBlaster(18, 50));
         scanner = new Scan();
-        validator = code -> true;
         statusProvider = StaticContainer.statusContainer;
         updater = status -> {
             System.out.println("Ballot status sent to server: " + status.toString());
             statusProvider.writeStatus(status);
+        };
+        validator = code -> {
+            if (code.isEmpty()) {
+                updater.pushStatus(BallotStatus.REJECT);
+                return false;
+            }
+
+            updater.pushStatus(BallotStatus.ACCEPT);
+            return true;
         };
         spooler = new PaperSpooler(updater, diverter, motor, halfwaySensor, scanner, validator);
         monitor = new Monitor(listener, spooler);

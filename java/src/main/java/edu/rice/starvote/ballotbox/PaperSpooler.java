@@ -119,26 +119,18 @@ public class PaperSpooler implements ISpooler {
             final boolean paperSpooled = halfwaySensor.waitForEvent(PinEdge.FALLING, 3000);
             if (paperSpooled) {
                 System.out.println(getClass().getSimpleName() + ": Paper taken in, beginning scan");
-                BallotStatus scanStatus;
                 waitMillis(150); // Small delay is necessary here to ensure paper is fed
 
                 motor.reverse(21);
                 String code = scanner.scan(SCANTIME);
                 System.out.println(getClass().getSimpleName() + ": Code scanned: " + code);
                 motor.stop();
-                if (code.isEmpty()) {
-                    System.out.println(getClass().getSimpleName() + ": Ballot not scanned");
-                    diverter.up();
-                    scanStatus = BallotStatus.REJECT;
-                    statusUpdater.pushStatus(scanStatus);
-                } else if (validator.validate(code)) {
+               if (validator.validate(code)) {
                     System.out.println(getClass().getSimpleName() + ": Ballot code valid");
                     diverter.down();
-                    scanStatus = BallotStatus.ACCEPT;
                 } else {
                     System.out.println(getClass().getSimpleName() + ": Ballot code invalid");
                     diverter.up();
-                    scanStatus = BallotStatus.REJECT;
                 }
 
                 waitMillis(1000); // Wait for diverter to fully actuate
