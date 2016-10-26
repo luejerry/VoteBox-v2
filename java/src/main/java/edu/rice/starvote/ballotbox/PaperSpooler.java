@@ -122,7 +122,7 @@ public class PaperSpooler implements ISpooler {
                 BallotStatus scanStatus;
                 waitMillis(150); // Small delay is necessary here to ensure paper is fed
 
-                motor.reverse(25);
+                motor.reverse(21);
                 String code = scanner.scan(SCANTIME);
                 System.out.println(getClass().getSimpleName() + ": Code scanned: " + code);
                 motor.stop();
