@@ -26,7 +26,7 @@ public class CodeInputReader {
         while (true) {
             try {
                 final String input = reader.nextLine();
-                if (input.equalsIgnoreCase("exit")) {
+                if (input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit")) {
                     break;
                 }
                 final String[] args = input.split(" ");
