@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class PaperSpooler implements ISpooler {
 
-    final static int SCANTIME = 5;
+    final static int SCANTIME = 7;
 
     private DeviceStatus status = DeviceStatus.READY;
     private final IStatusUpdate statusUpdater;
@@ -122,7 +122,7 @@ public class PaperSpooler implements ISpooler {
                 waitMillis(150); // Small delay is necessary here to ensure paper is fed
 
                 motor.reverse(21);
-                String code = scanner.scan(SCANTIME);
+                String code = scanner.scan(SCANTIME).orElse(null);
                 System.out.println(getClass().getSimpleName() + ": Code scanned: " + code);
                 motor.stop();
                if (validator.validate(code)) {

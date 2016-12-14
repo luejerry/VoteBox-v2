@@ -50,6 +50,11 @@ public class PageController {
             voiceController.pushStatus(status);
         };
         validator = code -> {
+            if (code == null) {
+                System.out.println("Validator: No code was scanned");
+                updater.pushStatus(BallotStatus.REJECT);
+                return false;
+            }
             final Optional<BallotProgress> oProgress = ballotDb.scanPage(code);
             return oProgress.map((progress) -> {
                 if (progress.completed()) {

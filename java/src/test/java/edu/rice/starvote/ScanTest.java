@@ -12,7 +12,7 @@ public class ScanTest {
     @Test
     public void test() throws Exception {
         IScanner scanner = new Scan();
-        String code = scanner.scan(10);
+        String code = scanner.scan(10).orElse("");
         System.out.println(code);
         assertFalse("Code was not scanned", code.isEmpty());
         assertEquals("Code was not valid", "Acc3ptB@LL07", code);
