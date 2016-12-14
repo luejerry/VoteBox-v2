@@ -63,6 +63,9 @@ public class PageController {
                     if (code.equals(TESTCODE)) {
                         ballotDb.addBallot(TESTCODE, 1);
                         System.out.println("New ballot added with code " + TESTCODE + ", 1 page");
+                    } else if (code.equals("")) {
+                        ballotDb.addBallot("", 1);
+                        System.out.println("New ballot added with blank code, 1 page");
                     }
 
 //                    addTestBallots(); // For testing only: readd the ballot code after it is finished scanning
@@ -99,6 +102,10 @@ public class PageController {
         System.out.println("New ballot added with code " + code + ", 3 pages");
         ballotDb.addBallot(TESTCODE, 1);
         System.out.println("New ballot added with code " + TESTCODE + ", 1 page");
+
+        // For public demo purpose only; barcode scanner sometimes returns an empty string instead of the code
+        ballotDb.addBallot("", 1);
+        System.out.println("New ballot added with empty code, 1 page");
     }
 
     /**
